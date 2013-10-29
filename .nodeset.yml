@@ -1,0 +1,15 @@
+---
+default_set: 'centos-64-x64'
+sets:
+  'centos-59-x64':
+    nodes:
+      "centos5.sudo.vm":
+        prefab: 'centos-59-x64'
+  'centos-64-x64':
+    nodes:
+      "centos6.sudo.vm":
+        prefab: 'centos-64-x64'
+  'ubuntu-server-12042-x64':
+    nodes:
+      "ubuntu12.sudo.vm":
+        prefab: 'ubuntu-server-12042-x64'
