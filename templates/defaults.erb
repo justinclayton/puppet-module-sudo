@@ -1,0 +1,9 @@
+<%- @defaults_hash.each do |key, value| -%>
+  <%- if value.class == TrueClass -%>
+    Defaults <%= key %>
+  <%- elsif value.class == FalseClass -%>
+    Defaults !<%= key %>
+  <%- else -%>
+    Defaults <%= key %> = "<%= value %>"
+  <%- end -%>
+<%- end -%>

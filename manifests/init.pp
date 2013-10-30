@@ -1,41 +1,66 @@
-# == Class: sudo
+# Class: sudo
 #
-# Full description of class sudo here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
-# === Examples
-#
-#  class { sudo:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
-#
-# === Authors
-#
-# Author Name <author@domain.com>
-#
-# === Copyright
-#
-# Copyright 2013 Your name here, unless otherwise noted.
-#
-class sudo {
+class sudo (
+  $manage_sudoers_file   = true,
+  $manage_sudoersd       = true,
+  $keep_os_defaults      = true,
+  $package_name          = $sudo::params::package_name,
+  $package_ensure        = $sudo::params::package_ensure,
+  $sudoers_file_path     = $sudo::params::sudoers_file_path,
+  $sudoersd_path         = $sudo::params::sudoersd_path,
+  $sudoers_file_content  = undef,
+  $defaults_hash         = undef,
+  $confs_hash            = undef
+) inherits sudo::params {
 
+  package { $package_name:
+    ensure => $package_ensure,
+  }
 
+  if $manage_sudoers_file {
+
+    if $sudoers_file_content {
+      $content_real = $sudoers_file_content
+    } else {
+      $content_real = template('sudo/sudoers_file.erb')
+    }
+
+    file { $sudoers_file_path:
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0440',
+      replace => $manage_sudoers_file,
+      content => $content_real,
+      require => Package[$package_name],
+    }
+  }
+
+  if $manage_sudoersd {
+    file { $sudoersd_path:
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0550',
+      recurse => $manage_sudoersd,
+      purge   => $manage_sudoersd,
+      require => Package[$package_name],
+    }
+  }
+
+  if $keep_os_defaults {
+    sudo::defaults { 'os_defaults':
+      defaults_hash => $sudo::params::os_defaults,
+    }
+  }
+
+  if $defaults_hash {
+    sudo::defaults { 'custom_defaults':
+      defaults_hash => $defaults_hash,
+    }
+  }
+
+  if $confs_hash {
+    create_resources('sudo::conf', $confs_hash)
+  }
 }

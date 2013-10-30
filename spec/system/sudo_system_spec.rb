@@ -11,7 +11,19 @@ describe 'basic tests:' do
   # Using puppet_apply as a helper
   it 'my class should work with no errors' do
     pp = <<-EOS
-      class { 'sudo': }
+      class { 'sudo':
+        keep_os_defaults => false,
+        defaults_hash    => {
+          requiretty     => false,
+          visiblepw      => true,
+        },
+        confs_hash       => {
+          'vagrant'      => {
+            ensure       => present,
+            content      => 'vagrant ALL=(ALL) NOPASSWD: ALL',
+          }
+        },
+      }
     EOS
 
     # Run it twice and test for idempotency
