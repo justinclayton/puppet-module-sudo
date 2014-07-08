@@ -1,5 +1,5 @@
 name    'justinclayton-sudo'
-version '1.0.0'
+version '1.1.0'
 source 'http://github.com/justinclayton/puppet-module-sudo.git'
 author 'justinclayton'
 license 'MIT'
