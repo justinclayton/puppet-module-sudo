@@ -1,9 +1,10 @@
 # Define: sudo::conf
 #
 define sudo::conf (
-  $ensure  = present,
-  $content = undef,
-  $source  = undef
+  $ensure   = present,
+  $content  = undef,
+  $source   = undef,
+  $priority = undef,
 ) {
 
   include sudo
@@ -16,9 +17,15 @@ define sudo::conf (
     $content_real = undef
   }
 
-  file { $name:
+  if $priority != undef {
+    $name_real = "${priority}_${name}"
+  } else {
+    $name_real = $name
+  }
+
+  file { $name_real:
     ensure  => $ensure,
-    path    => "${sudo::sudoersd_path}/${name}",
+    path    => "${sudo::sudoersd_path}/${name_real}",
     owner   => 'root',
     group   => 'root',
     mode    => '0440',
