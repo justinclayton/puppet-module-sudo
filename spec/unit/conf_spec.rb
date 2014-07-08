@@ -50,4 +50,15 @@ describe 'sudo::conf', :type => :define do
     end
   end
 
+  context 'using a priority of 42' do
+    let(:params) do
+      { :priority => '42' }
+    end
+
+    it do
+      should contain_file('42_testing').with({
+        :path => '/etc/sudoers.d/42_testing',
+      })
+    end
+  end
 end
