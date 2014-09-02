@@ -38,7 +38,7 @@ class { 'sudo':
 }
 ```
 
-By default this module wants to manage the entire suoders.d directory, which includes removing any files not explicitly managed by this module. While this can be very good for keeping a handle on configs outside of puppet, there are cases (particularly during an initial transition to puppet) where you will want to allow for both. Disabling ```manage_sudoersd``` allows for this.
+By default this module wants to manage the entire sudoers.d directory, which includes removing any files not explicitly managed by this module. While this can be very good for keeping a handle on configs outside of puppet, there are cases (particularly during an initial transition to puppet) where you will want to allow for both. Disabling ```manage_sudoersd``` allows for this.
 
 ```puppet
 class { 'sudo':
