@@ -71,4 +71,17 @@ class { 'sudo':
 }
 ```
 
-As an alternative to sprinkling ```sudo::conf``` resources all throughout your codebase, you may wish to consolidate all your data into a single manifest, or be even more fancy and pull it in from something like hiera. This module makes this a snap by allowing you to pass a hash of ```sudo::conf``` resources as a class parameter.
+As an alternative to sprinkling ```sudo::conf``` resources all throughout your codebase, you may wish to consolidate all your data into a single manifest, or be even more fancy and pull it in from something like hiera. This module makes this a snap by allowing you to pass a hash of ```sudo::conf``` resources as a class parameter. The below example shows how you can easily extract this data out of your manifests and into hiera, allowing you to do things like easily delegate sudoers.d content to other groups within your organization:
+
+```yaml
+---
+sudo::confs_hash:
+  dudr:
+      ensure: present
+      content: 'dudr ALL=(ALL) NOPASSWD: ALL'
+  fudr:
+    ensure: present,
+    content: 'fudr ALL=(ALL): /bin/echo'
+```
+
+For more information on how you can do automated class parameter lookup via hiera, see [this doc](https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup).
