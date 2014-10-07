@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/justinclayton/puppet-module-sudo.png?branch=master)](https://travis-ci.org/justinclayton/puppet-module-sudo)
 
 ##Description
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/justinclayton/puppet-module-sudo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This module allows you to easily manage sudo, no matter how complex or simple your configuration needs to be. It is fully backwards-compatible with those  ```sudo::conf``` defined types. It has been tested for quality using [puppet-lint](http://github.com/puppetlabs/puppet-lint), [rspec-puppet](http://github.com/rodjek/rspec-puppet), and [rspec-system](http://github.com/puppetlabs/rspec-system).
 
