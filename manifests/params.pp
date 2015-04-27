@@ -4,6 +4,7 @@ class sudo::params {
   $package_ensure         = 'present'
   $sudoers_file_path      = '/etc/sudoers'
   $sudoersd_path          = '/etc/sudoers.d'
+  $sudo_check_cmd         = '/usr/sbin/visudo -c -f'
 
   case $::osfamily {
     debian: {

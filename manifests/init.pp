@@ -8,6 +8,7 @@ class sudo (
   $package_ensure        = $sudo::params::package_ensure,
   $sudoers_file_path     = $sudo::params::sudoers_file_path,
   $sudoersd_path         = $sudo::params::sudoersd_path,
+  $sudo_check_cmd        = $sudo::params::sudo_check_cmd,
   $sudoers_file_content  = undef,
   $defaults_hash         = undef,
   $confs_hash            = undef
