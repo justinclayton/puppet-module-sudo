@@ -32,4 +32,10 @@ define sudo::conf (
     source  => $source,
     content => $content_real,
   }
+  if versioncmp($::puppetversion, '3.5') >= 0 {
+    File["${name_real}"] { validate_cmd => "${sudo::sudo_check_cmd} %" }
+  }
+  else {
+    validate_cmd($content_real, "${sudo::sudo_check_cmd}", "Failed to validate sudoers content with ${sudo::sudo_check_cmd}")
+  }
 }
