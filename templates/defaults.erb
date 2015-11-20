@@ -1,4 +1,4 @@
-<%- @defaults_hash.sort.each do |key, value| -%>
+<%- (@defaults_hash || {}).sort.each do |key, value| -%>
   <%- if value.class == TrueClass -%>
     Defaults <%= key %>
   <%- elsif value.class == FalseClass -%>
