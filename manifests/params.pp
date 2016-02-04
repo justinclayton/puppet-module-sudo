@@ -1,7 +1,7 @@
 class sudo::params {
 
   $package_name           = 'sudo'
-  $package_ensure         = 'present'
+  $package_ensure         = 'latest'
   $sudoers_file_path      = '/etc/sudoers'
   $sudoersd_path          = '/etc/sudoers.d'
   $sudo_check_cmd         = '/usr/sbin/visudo -c -f'
